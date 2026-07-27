@@ -115,7 +115,7 @@ app.all('*', (req, res) => {
                 contentType.indexOf('text/css') !== -1) {
 
                 return response.text().then((text) => {
-                    if (req.url.indexOf('/tv') === 0) {
+                    if (req.url.indexOf('/tv') === 0 && req.url.indexOf('/tv_config') === -1) {
                         // Insert the userscript for TizenTube
                         text += `<script src="https://cdn.jsdelivr.net/npm/@foxreis/tizentube/dist/userScript.js?ver=${Date.now()}"></script>`;
                     }
@@ -147,6 +147,10 @@ app.all('*', (req, res) => {
                     text = text.replace(/https\:\/\/jnn-pa.googleapis.com/g, `${proxyPrefix}https://jnn-pa.googleapis.com`);
                     text = text.replace(/https:\/\/yt3\.googleusercontent\.com/g, `${proxyPrefix}https://yt3.googleusercontent.com`);
                     text = text.replace(/"\/\/yt3\.googleusercontent\.com/g, `"${proxyPrefix}https://yt3.googleusercontent.com`);
+
+                    // In order to fix history not working
+                    text = text.replace(/=window\.location\.href;/, '=window.location.href.replace("http://localhost:8099", "https://www.youtube.com");')
+                    text = text.replace(/=document\.location\.href/, '=document.location.href.replace("http://localhost:8099", "https://www.youtube.com")')
 
                     res.send(text);
                 });

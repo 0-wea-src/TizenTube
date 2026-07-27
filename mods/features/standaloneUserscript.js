@@ -2,6 +2,7 @@ function redirectUrl(originalUrl) {
     if (!originalUrl) return originalUrl;
 
     try {
+        if (typeof originalUrl === 'string' && originalUrl.startsWith('//')) originalUrl = originalUrl.replace('//', 'https://')
         const url = new URL(originalUrl, window.location.origin);
         const hostname = url.hostname;
 
@@ -47,12 +48,14 @@ export default function () {
                         method: input.method,
                         headers: new Headers(input.headers),
                         mode: input.mode,
-                        credentials: input.credentials
+                        credentials: input.credentials,
                     };
 
                     if (input.body && !input.bodyUsed) {
-                        return input.clone().blob().then(function (blob) {
-                            modifiedOptions.body = blob;
+                        const requestClone = input.clone();
+                        return input.clone().arrayBuffer().then(function (buffer) {
+                            modifiedOptions.body = buffer;
+
                             return originalFetch(targetUrl, modifiedOptions);
                         });
                     }
@@ -63,7 +66,7 @@ export default function () {
                 input = new Request(targetUrl, input);
             }
 
-            return originalFetch.apply(this, [input, init]);
+            return originalFetch.apply(this, [targetUrl, init]);
         };
     }
 

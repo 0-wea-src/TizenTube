@@ -7,7 +7,11 @@ const app = express();
 const PORT = 8099;
 const fetch = require('node-fetch');
 const http = require('http');
+const https = require('https');
 const URL = require('url');
+
+const httpAgent = new http.Agent({ maxHeaderSize: 5 * (1024 * 1024) });
+const httpsAgent = new https.Agent({ maxHeaderSize: 5 * (1024 * 1024) });
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -62,7 +66,10 @@ app.all('*', (req, res) => {
         method: req.method,
         headers: headers,
         body: hasBody ? req : undefined,
-        redirect: 'manual'
+        redirect: 'manual',
+        agent: (_parsedURL) => {
+            return _parsedURL.protocol === 'https:' ? httpsAgent : httpAgent;
+        }
     };
 
     fetch(targetUrl, fetchOptions)

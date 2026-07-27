@@ -9,9 +9,7 @@ const fetch = require('node-fetch');
 const http = require('http');
 const https = require('https');
 const URL = require('url');
-
-const httpAgent = new http.Agent({ maxHeaderSize: 5 * (1024 * 1024) });
-const httpsAgent = new https.Agent({ maxHeaderSize: 5 * (1024 * 1024) });
+const injector = require('./injector.js');
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -21,6 +19,16 @@ app.use((req, res, next) => {
         return res.status(200).end();
     }
     next();
+});
+
+app.get('/tizentube/getState', (req, res) => {
+    injector.canConnectToDaemon().then(r => {
+        res.json(r);
+    });
+});
+
+app.get('/tizentube/debugger', (req, res) => {
+    setTimeout(injector.startDebugger, 1500);
 });
 
 app.all('*', (req, res) => {
@@ -66,10 +74,7 @@ app.all('*', (req, res) => {
         method: req.method,
         headers: headers,
         body: hasBody ? req : undefined,
-        redirect: 'manual',
-        agent: (_parsedURL) => {
-            return _parsedURL.protocol === 'https:' ? httpsAgent : httpAgent;
-        }
+        redirect: 'manual'
     };
 
     fetch(targetUrl, fetchOptions)

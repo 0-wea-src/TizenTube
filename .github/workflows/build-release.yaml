@@ -39,6 +39,12 @@ jobs:
           fi
           echo "RELEASE_VERSION=$TAG" >> $GITHUB_ENV
 
+      - name: Install modules, transpile service and build service for DIAL
+        working-directory: service
+        run: |
+          npm install
+          npx rollup -c rollup.config.js
+
       - name: Install modules, transpile service and build service
         working-directory: standalone/service
         run: |

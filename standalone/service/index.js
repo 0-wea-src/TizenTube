@@ -28,7 +28,17 @@ app.get('/tizentube/getState', (req, res) => {
 });
 
 app.get('/tizentube/debugger', (req, res) => {
-    setTimeout(injector.startDebugger, 1500);
+    const args = req.originalUrl.split('?')[1] || '';
+    const interval = setInterval(() => {
+        tizen.application.getAppsContext((appsContext) => {
+            const packageId = tizen.application.getAppInfo().packageId;
+            const app = appsContext.find(app => app.appId === `${packageId}.TizenTubeStandalone`);
+            if (!app) {
+                injector.startDebugger(args);
+                clearInterval(interval)
+            }
+        });
+    }, 50);
 });
 
 app.all('*', (req, res) => {
@@ -184,3 +194,7 @@ app.all('*', (req, res) => {
 });
 
 app.listen(PORT, "127.0.0.1");
+
+// Start the DIAL server
+global.isTizenTube = true;
+require('../../dist/service.js');

@@ -1,4 +1,4 @@
-# TizenTube fork (0-wea-src)
+# TizenTube fork
 
 A fork of [TizenTube](https://github.com/reisxd/TizenTube) fixing the **360p-only playback** bug on Samsung TVs: some videos were locked to 360p because the player bound them to VP9/AV01 formats the TV can't decode at higher resolutions.
 

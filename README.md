@@ -16,15 +16,18 @@ This fork fixes both:
 * **Correct key** in the settings UI — the codec menu now actually works.
 * **AVC1 by default** (`videoPreferredCodec: avc1`) — the player picks H.264 (AVC1) formats on videos that offer them, unlocking the video's native resolution.
 
-> ⚖️ **Trade-off:** dual-codec videos may cap at **1080p** (the AVC1 ceiling). Videos that only exist in VP9/AV01 play exactly as before — the filter only applies when the preferred codec is present in the format list, so VP9-only videos are never broken.
+> ⚖️ **Trade-off (and the toggle):** YouTube only offers AVC1 (H.264) up to **1080p** — 4K/HDR is VP9/AV1-only. So with the default `avc1` setting, videos that exist in several formats top out at 1080p. Videos that only exist in VP9/AV01 are left untouched — the filter only applies when the preferred codec is actually present in the format list.
+>
+> You can switch back to **Any** anytime in **Settings → Video Player → Preferred Video Codec** (that menu is fixed in this fork — upstream it silently did nothing). Result: videos your TV can decode well play in 4K again; the videos that were stuck at 360p go back to 360p.
 
 ## 📥 Installation (TizenBrew)
 
 1. Install [TizenBrew](https://github.com/reisxd/TizenBrew) on your Samsung TV.
 2. Open **Module Manager → Add → GH** and enter:
    ```
-   gh/0-wea-src/TizenTube
+   0-wea-src/TizenTube
    ```
+   (no `gh/` prefix — the module manager adds it automatically)
 3. Launch the module — it displays as **TizenTube (0-wea-src)**, so it can't be confused with any other installed TizenTube version.
 
 > 💡 Don't run two TizenTube modules at the same time — they inject into the same app.

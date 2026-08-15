@@ -32,8 +32,8 @@ const apps = {
                     [
                         new tizen.ApplicationControlData("module", [JSON.stringify(
                             {
-                                moduleName: '@foxreis/tizentube',
-                                moduleType: 'npm',
+                                moduleName: '0-wea-src/TizenTube',
+                                moduleType: 'gh',
                                 args: launchData
                             }
                         )])

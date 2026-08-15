@@ -1,8 +1,8 @@
 {
-  "name": "@foxreis/tizentube",
-  "appName": "TizenTube",
-  "version": "1.14.7",
-  "description": "TizenTube is an ad-free and sponsor-free solution for your favourite streaming website on your Tizen (Samsung) TVs.",
+  "name": "@0-wea-src/tizentube",
+  "appName": "TizenTube (0-wea-src)",
+  "version": "1.14.7-fork.1",
+  "description": "TizenTube fork (0-wea-src): ad-free/sponsor-free YouTube for Tizen, with AVC1 codec fix for 360p-only videos.",
   "packageType": "mods",
   "websiteURL": "https://youtube.com/tv?additionalDataUrl=http%3A%2F%2Flocalhost%3A8085%2Fdial%2Fapps%2FYouTube",
   "main": "dist/userScript.js",
@@ -19,7 +19,7 @@
     "MediaTrackPrevious"
   ],
   "repository": {
-    "url": "https://github.com/reisxd/TizenTube"
+    "url": "https://github.com/0-wea-src/TizenTube"
   },
   "license": "GPL-3.0-only"
 }

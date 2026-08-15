@@ -1,54 +1,52 @@
-# ▶️ TizenTube
-> A fork of the original repository by [@reisxd](https://github.com/reisxd).
-> It patches the **encoding bug** where you could only watch specific videos in **360p**.
+# ▶️ TizenTube fork (0-wea-src)
 
-## 🚀 About This Fork
-This repository fixes a specific **encoding bug** found in the original project. 
+> A fork of [TizenTube](https://github.com/reisxd/TizenTube) by [@reisxd](https://github.com/reisxd).
+> Fixes the **encoding bug** that locked certain videos to **360p**.
 
-### Key Improvements:
-* **No more 360p lock:** Fixes the issue where certain videos only play in **360p**.
-* **High-quality playback:** Enables watching videos in their **native resolution**.
-<br><br><br>
+## 🚀 Why this fork exists
+
+On Samsung TVs, the YouTube client binds some videos to VP9/AV01 codecs that the TV can only decode at **360p**.
+The original TizenTube had two issues that made its codec setting useless:
+
+1. The settings UI wrote the key **`preferredVideoCodec`**, while the format filter reads **`videoPreferredCodec`** — a key mismatch, so the setting silently did nothing.
+2. The default was `any`, so the player kept binding the low-resolution VP9 formats.
+
+This fork fixes both:
+
+* **Correct key** in the settings UI — the codec menu now actually works.
+* **AVC1 by default** (`videoPreferredCodec: avc1`) — the player picks H.264 (AVC1) formats on videos that offer them, unlocking the video's native resolution.
+
+> ⚖️ **Trade-off:** dual-codec videos may cap at **1080p** (the AVC1 ceiling). Videos that only exist in VP9/AV01 play exactly as before — the filter only applies when the preferred codec is present in the format list, so VP9-only videos are never broken.
+
+## 📥 Installation (TizenBrew)
+
+1. Install [TizenBrew](https://github.com/reisxd/TizenBrew) on your Samsung TV.
+2. Open **Module Manager → Add → GH** and enter:
+   ```
+   gh/0-wea-src/TizenTube
+   ```
+3. Launch the module — it displays as **TizenTube (0-wea-src)**, so it can't be confused with any other installed TizenTube version.
+
+> 💡 Don't run two TizenTube modules at the same time — they inject into the same app.
+
+## ✨ Features
+
+- 📺 **Picture-in-Picture Mode**
+- 🛑 **Ad Blocker**: enjoy your favourite streaming website without interruptions
+- ❗ **SponsorBlock Support**: automatically skip sponsored segments
+- ⏭️ **Video Speed Control**: adjust playback speed to your preference
+- 🔺 **DeArrow Support**: remove clickbait and misleading video titles
+
+## 💬 Support
+
+Report issues or request features via the [issue tracker](https://github.com/0-wea-src/TizenTube/issues).
+
+Original TizenTube community: [r/TizenTube](https://www.reddit.com/r/TizenTube/) · [Discord](https://discord.gg/m2P7v8Y2qR) · [Telegram](https://t.me/tizentubeofficial)
+
+---
+
 <p align="center">
     <img width="600px" src=".github/assets/TizenTube Standalone Banner.png">
     <br>
     <sub> TizenTube logo, banner and README by <a href="https://github.com/Zyborg777">@Zyborg777</a> </sub>
 </p>
-
-**TizenTube** is a TizenBrew module that enhances your favourite streaming websites viewing experience by removing ads and adding support for Sponsorblock. **Now works as a standalone app!**
-
-** **
-🤖 **Looking for an app for Android TVs?** Check out [TizenTube Cobalt](https://github.com/reisxd/TizenTubeCobalt). It offers everything TizenTube has for Android TVs.
-
-
-<p align="left">
-    <a href="https://github.com/reisxd/TizenTubeCobalt/releases/latest">
-        <picture>
-            <img width="250px"
-                src=".github/assets/TizenTube_Cobalt_dl-button.png" />
-        </picture>
-    </a>
-</p>
-
-## ❓ How to install
-
-1. Install TizenBrew from [here](https://github.com/reisxd/TizenBrew) and follow the instructions.
-
-2. TizenTube is installed to TizenBrew by default. It should be in the home screen. If not, add `@foxreis/tizentube` as a NPM module in TizenBrew module manager.
-
-## ✨ Features
-- 📺 **Picture-in-Picture Mode**
-- 🛑 **Ad Blocker**: Enjoy your favourite streaming website without interruptions from ads.
-- ❗ **SponsorBlock Support**: Automatically skip sponsored segments in videos.
-- ⏭️ **Video Speed Control**: Adjust playback speed to your preference.
-- 🔺 **[DeArrow](https://dearrow.ajay.app/) Support**: Remove clickbait and misleading video titles.
-- ➕ **More to come!** Request features via [issues](https://github.com/reisxd/TizenTube/issues/new).
-
-## 🌐 Community and Support 
-| Links |
-| ------------- |
-| [r/TizenTube Subreddit](https://www.reddit.com/r/TizenTube/)  |
-| [Discord Server](https://discord.gg/m2P7v8Y2qR)  | 
-| [Telegram](https://t.me/tizentubeofficial)  |
-| [Matrix Space](https://matrix.to/#/!BLE5ubNYktI30e8K0j:matrix.6513006.xyz)  |
-| [Report Issues / Request Features](https://github.com/reisxd/TizenTube/issues)  |

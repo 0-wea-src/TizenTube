@@ -423,7 +423,7 @@ export default function modernUI(update, parameters) {
                     options: ['any', 'vp9', 'av01', 'avc1'].map((codec) => {
                         return {
                             name: codec === 'any' ? 'Any' : codec.toUpperCase(),
-                            key: 'preferredVideoCodec',
+                            key: 'videoPreferredCodec',
                             value: codec
                         }
                     })

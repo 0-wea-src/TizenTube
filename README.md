@@ -1,4 +1,14 @@
 # ▶️ TizenTube
+> A fork of the original repository by [@reisxd](https://github.com/reisxd).
+> It patches the **encoding bug** where you could only watch specific videos in **360p**.
+
+## 🚀 About This Fork
+This repository fixes a specific **encoding bug** found in the original project. 
+
+### Key Improvements:
+* **No more 360p lock:** Fixes the issue where certain videos only play in **360p**.
+* **High-quality playback:** Enables watching videos in their **native resolution**.
+<br><br><br>
 <p align="center">
     <img width="600px" src=".github/assets/TizenTube Standalone Banner.png">
     <br>
